@@ -1,0 +1,17 @@
+{
+  "name": "mobe",
+  "version": "0.0.1",
+  "description": "Mock Out Back End",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.13.3",
+    "log-util": "^1.1.0",
+    "minimist": "^1.2.0",
+    "underscore": "^1.8.3"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Aaron Humerickhouse",
+  "license": "ISC"
+}
