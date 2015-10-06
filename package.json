@@ -10,8 +10,15 @@
     "minimist": "^1.2.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "mocha"
   },
   "author": "Aaron Humerickhouse",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.3.0",
+    "mocha": "^2.3.3",
+    "should": "^7.1.0",
+    "supertest": "^1.1.0"
+  }
 }

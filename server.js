@@ -3,7 +3,7 @@ var log = require('log-util');
 var argv = require('minimist')(process.argv.slice(2));
 var bodyParser = require('body-parser');
 
-var server = express();
+var server = exports.server = express();
 
 var main = function (argv) {
   var port = Number(argv.port) || 8000;
@@ -13,44 +13,43 @@ var main = function (argv) {
 };
 
 var mockAPI = function (req, res, next) {
-  if (req.path == '/mock/response/register') {
-    registerMockResponse(req.body)
-    log.info('Registered Mock Response: ' + methodPath(req.body))
+  if (req.path == '/mobe/response/register') {
+    registerMockResponse(req.body);
+    log.info('Registered Mock Response: ' + methodPath(req.body));
     res.send({'status': 'success', 'message': 'response registered at: ' + methodPath(req.body)});
 
-  } else if (req.path == '/mock/intercept/set') {
-    registerIntercept(req.body)
-    log.info('Registered Intercept: ' + methodPath(req.body))
+  } else if (req.path == '/mobe/intercept/set') {
+    registerIntercept(req.body);
+    log.info('Registered Intercept: ' + methodPath(req.body));
     res.send({'status': 'success', 'message': 'intercept registered at: ' + methodPath(req.body)});
 
-  } else if (req.path == '/mock/intercept/get') {
-    getIntercept(req.body)
-    log.info('Returned Intercept: ' + methodPath(req.body))
+  } else if (req.path == '/mobe/intercept/get') {
+    getIntercept(req.body);
+    log.info('Returned Intercept: ' + methodPath(req.body));
     res.send(getIntercept(req.body));
 
-  } else if (req.path == '/mock/response/unregister') {
-    unregisterMockResponse(req.body)
-    log.info('Unregistered Mock Response: ' + methodPath(req.body))
+  } else if (req.path == '/mobe/response/unregister') {
+    unregisterMockResponse(req.body);
+    log.info('Unregistered Mock Response: ' + methodPath(req.body));
     res.send({'status': 'success', 'message': 'response unregistered at: ' + methodPath(req.body)});
 
-  } else if (req.path == '/mock/intercept/unregister') {
-    unregisterIntercept(req.body)
-    log.info('Unregistered Intercept: ' + methodPath(req.body))
+  } else if (req.path == '/mobe/intercept/unregister') {
+    unregisterIntercept(req.body);
+    log.info('Unregistered Intercept: ' + methodPath(req.body));
     res.send({'status': 'success', 'message': 'intercept unregistered at: ' + methodPath(req.body)});
 
   } else if (isIntercept(req)) {
-    //Push to interceptedRequests
     addInterceptedRequest(req);
 
-    var mockData = registeredIntercepts[methodPath(req)]
+    var mockData = registeredIntercepts[methodPath(req)];
     res.statusCode = mockData.statusCode;
     res.send(mockData.response);
 
   } else if (isMockResponse(req)) {
-    //Return status code and response
-    var mockData = registeredMocks[methodPath(req)]
+    var mockData = registeredMocks[methodPath(req)];
     res.statusCode = mockData.statusCode;
     res.send(mockData.response);
+
   } else {
     log.warn('Missing Path: ' + methodPath(req));
     return next();
@@ -63,35 +62,35 @@ function isMockResponse(body) {
   } else {
     return false
   }
-};
+}
 
 function isIntercept(body) {
   if (body) {
     return registeredIntercepts.hasOwnProperty(methodPath(body));
   } else {
-    return false
+    return false;
   }
-};
+}
 
 function registerMockResponse(body) {
   registeredMocks[methodPath(body)] = body;
-};
+}
 
 function unregisterMockResponse(body) {
   delete registeredMocks[methodPath(body)];
-};
+}
 
 function getIntercept(body) {
   return interceptedRequests[methodPath(body)];
-};
+}
 
 function unregisterIntercept(body) {
   delete registeredIntercepts[methodPath(body)];
-};
+}
 
 function registerIntercept(body) {
   registeredIntercepts[methodPath(body)] = body;
-};
+}
 
 function addInterceptedRequest(req) {
   var size;
@@ -108,15 +107,15 @@ function addInterceptedRequest(req) {
     'statusCode': req.statusCode,
     'result': req.body
   })
-};
+}
 
 function methodPath(body) {
   return body.method + ':' + body.path;
-};
+}
 
-var registeredIntercepts = {};
-var registeredMocks = {};
-var interceptedRequests = {};
+var registeredIntercepts = exports.registeredIntercepts = {};
+var registeredMocks = exports.registeredMocks = {};
+var interceptedRequests = exports.interceptedRequests = {};
 
 server.use(bodyParser.json()); // for parsing application/json
 server.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
