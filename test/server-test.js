@@ -215,9 +215,7 @@ describe('POST /mobe/response/unregister_all', function () {
               .post('/mobe/response/unregister_all')
               .set('Accept', 'application/json')
               .end(function () {
-                setTimeout(function () {
-                  Object.keys(server.registeredMocks).length.should.equal(0)
-                }, 2000)
+                Object.keys(server.registeredMocks).length.should.equal(0)
                 done();
               });
           });
@@ -241,9 +239,7 @@ describe('POST /mobe/intercepts/unregister_all', function () {
               .post('/mobe/intercept/unregister_all')
               .set('Accept', 'application/json')
               .end(function () {
-                setTimeout(function () {
-                  Object.keys(server.registeredMocks).length.should.equal(0)
-                }, 2000)
+                Object.keys(server.registeredMocks).length.should.equal(0)
                 done();
               });
           });
