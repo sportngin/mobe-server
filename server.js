@@ -18,7 +18,7 @@ var mockAPI = function (req, res, next) {
     log.info('Registered Mock Response: ' + methodPath(req.body));
     res.send({'status': 'success', 'message': 'response registered at: ' + methodPath(req.body)});
 
-  } else if (req.path == '/mobe/intercept/set') {
+  } else if (req.path == '/mobe/intercept/register') {
     registerIntercept(req.body);
     log.info('Registered Intercept: ' + methodPath(req.body));
     res.send({'status': 'success', 'message': 'intercept registered at: ' + methodPath(req.body)});
@@ -38,20 +38,36 @@ var mockAPI = function (req, res, next) {
     log.info('Unregistered Intercept: ' + methodPath(req.body));
     res.send({'status': 'success', 'message': 'intercept unregistered at: ' + methodPath(req.body)});
 
+  } else if (req.path == '/mobe/intercept/unregister_all') {
+    registeredIntercepts = {};
+    log.info('Unregistered All Intercepts');
+    res.send({'status': 'success', 'message': 'intercept unregistered at: ' + methodPath(req.body)});
+
+
+  }else if (req.path == '/mobe/response/unregister_all') {
+    registeredMocks = {};
+    log.info('Unregistered All Mock Responses');
+    res.send({'status': 'success', 'message': 'intercept unregistered at: ' + methodPath(req.body)});
+
+
   } else if (isIntercept(req)) {
     addInterceptedRequest(req);
 
     var mockData = registeredIntercepts[methodPath(req)];
+    log.info('Intercepted Path: ' + methodPath(req));
     res.statusCode = mockData.statusCode;
     res.send(mockData.response);
 
   } else if (isMockResponse(req)) {
     var mockData = registeredMocks[methodPath(req)];
+    log.info('Responded With Body for Path: ' + methodPath(req));
     res.statusCode = mockData.statusCode;
     res.send(mockData.response);
 
   } else {
     log.warn('Missing Path: ' + methodPath(req));
+    res.statusCode = 404
+    res.send();
     return next();
   }
 };
@@ -77,15 +93,25 @@ function registerMockResponse(body) {
 }
 
 function unregisterMockResponse(body) {
-  delete registeredMocks[methodPath(body)];
+  if (body) {
+    delete registeredMocks[methodPath(body)];
+  } else {
+    registeredMocks = {};
+  }
 }
 
 function getIntercept(body) {
-  return interceptedRequests[methodPath(body)];
+  var intercept = interceptedRequests[methodPath(body)];
+  delete interceptedRequests[methodPath(body)];
+  return intercept;
 }
 
 function unregisterIntercept(body) {
-  delete registeredIntercepts[methodPath(body)];
+  if (body) {
+    delete registeredIntercepts[methodPath(body)];
+  } else {
+    registeredIntercepts = {};
+  }
 }
 
 function registerIntercept(body) {
