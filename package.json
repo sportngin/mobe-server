@@ -1,7 +1,7 @@
 {
   "name": "mobe-server",
-  "version": "0.0.1",
-  "description": "Mock Out Back End",
+  "version": "0.0.2",
+  "description": "Point your application to mobe-server to mock out the back end. This is ideal for unit testing the front end of your application using a tool like Selenium.",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.14.1",
@@ -16,9 +16,8 @@
   "author": "Aaron Humerickhouse",
   "license": "ISC",
   "devDependencies": {
-    "chai": "^3.3.0",
     "mocha": "^2.3.3",
     "should": "^7.1.0",
-    "supertest": "^1.1.0"
+    "supertest-as-promised": "^2.0.2"
   }
 }

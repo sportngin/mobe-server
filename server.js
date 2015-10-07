@@ -24,7 +24,6 @@ var mockAPI = function (req, res, next) {
     res.send({'status': 'success', 'message': 'intercept registered at: ' + methodPath(req.body)});
 
   } else if (req.path == '/mobe/intercept/get') {
-    getIntercept(req.body);
     log.info('Returned Intercept: ' + methodPath(req.body));
     res.send(getIntercept(req.body));
 
@@ -40,15 +39,14 @@ var mockAPI = function (req, res, next) {
 
   } else if (req.path == '/mobe/intercept/unregister_all') {
     registeredIntercepts = {};
+    interceptedRequests = {};
     log.info('Unregistered All Intercepts');
     res.send({'status': 'success', 'message': 'all intercepts unregistered'});
 
-
-  }else if (req.path == '/mobe/response/unregister_all') {
+  } else if (req.path == '/mobe/response/unregister_all') {
     registeredMocks = {};
     log.info('Unregistered All Mock Responses');
     res.send({'status': 'success', 'message': 'all mock responses unregistered'});
-
 
   } else if (isIntercept(req)) {
     addInterceptedRequest(req);
@@ -93,11 +91,7 @@ function registerMockResponse(body) {
 }
 
 function unregisterMockResponse(body) {
-  if (body) {
-    delete registeredMocks[methodPath(body)];
-  } else {
-    registeredMocks = {};
-  }
+  delete registeredMocks[methodPath(body)];
 }
 
 function getIntercept(body) {
@@ -107,11 +101,8 @@ function getIntercept(body) {
 }
 
 function unregisterIntercept(body) {
-  if (body) {
-    delete registeredIntercepts[methodPath(body)];
-  } else {
-    registeredIntercepts = {};
-  }
+  delete registeredIntercepts[methodPath(body)];
+  delete interceptedRequests[methodPath(body)];
 }
 
 function registerIntercept(body) {
@@ -130,7 +121,6 @@ function addInterceptedRequest(req) {
     'index': size,
     'method': req.method,
     'path': req.url,
-    'statusCode': req.statusCode,
     'result': req.body
   })
 }
