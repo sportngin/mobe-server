@@ -236,7 +236,7 @@ describe('POST /mobe/intercepts/unregister_all', function () {
           .set('Accept', 'application/json')
           .end(function () {
             request(api)
-              .post('/mobe/intercepts/unregister_all')
+              .post('/mobe/intercept/unregister_all')
               .set('Accept', 'application/json')
               .end(function () {
                 Object.keys(server.registeredMocks).length.should.equal(0)

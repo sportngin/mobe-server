@@ -41,13 +41,13 @@ var mockAPI = function (req, res, next) {
   } else if (req.path == '/mobe/intercept/unregister_all') {
     registeredIntercepts = {};
     log.info('Unregistered All Intercepts');
-    res.send({'status': 'success', 'message': 'intercept unregistered at: ' + methodPath(req.body)});
+    res.send({'status': 'success', 'message': 'all intercepts unregistered'});
 
 
   }else if (req.path == '/mobe/response/unregister_all') {
     registeredMocks = {};
     log.info('Unregistered All Mock Responses');
-    res.send({'status': 'success', 'message': 'intercept unregistered at: ' + methodPath(req.body)});
+    res.send({'status': 'success', 'message': 'all mock responses unregistered'});
 
 
   } else if (isIntercept(req)) {
