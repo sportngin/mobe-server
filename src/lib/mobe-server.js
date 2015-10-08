@@ -15,57 +15,57 @@ var main = function (argv) {
 var mockAPI = function (req, res, next) {
   if (req.path == '/mobe/response/register') {
     registerMockResponse(req.body);
-    log.info('Registered Mock Response: ' + methodPath(req.body));
     res.send({'status': 'success', 'message': 'response registered at: ' + methodPath(req.body)});
+    log.info('Registered Mock Response: ' + methodPath(req.body));
 
   } else if (req.path == '/mobe/intercept/register') {
     registerIntercept(req.body);
-    log.info('Registered Intercept: ' + methodPath(req.body));
     res.send({'status': 'success', 'message': 'intercept registered at: ' + methodPath(req.body)});
+    log.info('Registered Intercept: ' + methodPath(req.body));
 
   } else if (req.path == '/mobe/intercept/get') {
-    log.info('Returned Intercept: ' + methodPath(req.body));
     res.send(getIntercept(req.body));
+    log.info('Returned Intercept: ' + methodPath(req.body));
 
   } else if (req.path == '/mobe/response/unregister') {
     unregisterMockResponse(req.body);
-    log.info('Unregistered Mock Response: ' + methodPath(req.body));
     res.send({'status': 'success', 'message': 'response unregistered at: ' + methodPath(req.body)});
+    log.info('Unregistered Mock Response: ' + methodPath(req.body));
 
   } else if (req.path == '/mobe/intercept/unregister') {
     unregisterIntercept(req.body);
-    log.info('Unregistered Intercept: ' + methodPath(req.body));
     res.send({'status': 'success', 'message': 'intercept unregistered at: ' + methodPath(req.body)});
+    log.info('Unregistered Intercept: ' + methodPath(req.body));
 
   } else if (req.path == '/mobe/intercept/unregister_all') {
     registeredIntercepts = {};
     interceptedRequests = {};
-    log.info('Unregistered All Intercepts');
     res.send({'status': 'success', 'message': 'all intercepts unregistered'});
+    log.info('Unregistered All Intercepts');
 
   } else if (req.path == '/mobe/response/unregister_all') {
     registeredMocks = {};
-    log.info('Unregistered All Mock Responses');
     res.send({'status': 'success', 'message': 'all mock responses unregistered'});
+    log.info('Unregistered All Mock Responses');
 
   } else if (isIntercept(req)) {
     addInterceptedRequest(req);
 
     var mockData = registeredIntercepts[methodPath(req)];
-    log.info('Intercepted Path: ' + methodPath(req));
     res.statusCode = mockData.statusCode;
     res.send(mockData.response);
+    log.info('Intercepted Path: ' + methodPath(req));
 
   } else if (isMockResponse(req)) {
     var mockData = registeredMocks[methodPath(req)];
-    log.info('Responded With Body for Path: ' + methodPath(req));
     res.statusCode = mockData.statusCode;
     res.send(mockData.response);
+    log.info('Responded With Body for Path: ' + methodPath(req));
 
   } else {
-    log.warn('Missing Path: ' + methodPath(req));
     res.statusCode = 404
     res.send();
+    log.warn('Missing Path: ' + methodPath(req));
     return next();
   }
 };
@@ -126,7 +126,7 @@ function addInterceptedRequest(req) {
 }
 
 function methodPath(body) {
-  return body.method + ':' + body.path;
+  return body.method + ':' + (body.originalUrl === undefined ? body.path : body.originalUrl);
 }
 
 var registeredIntercepts = exports.registeredIntercepts = {};

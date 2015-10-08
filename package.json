@@ -1,6 +1,6 @@
 {
   "name": "mobe-server",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Point your application to mobe-server to mock out the back end. This is ideal for unit testing the front end of your application using a tool like Selenium.",
   "main": "server.js",
   "dependencies": {
@@ -13,11 +13,17 @@
     "start": "node server.js",
     "test": "mocha"
   },
+  "bin": {"mobe" : "./src/bin/mobe"},
+  "engines": {
+    "node": "~0.10"
+  },
+  "version": "1.0.10",
+  "readmeFilename": "README.md",
   "author": "Aaron Humerickhouse",
   "license": "ISC",
   "devDependencies": {
     "mocha": "^2.3.3",
     "should": "^7.1.0",
-    "supertest-as-promised": "^2.0.2"
+    "supertest": "^1.1.0"
   }
 }
