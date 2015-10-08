@@ -2,7 +2,7 @@
 
 var request = require('supertest');
 require('should')
-var server = require('../server')
+var server = require('../src/lib/mobe-server')
 var api = server.server;
 
 describe('server', function () {
