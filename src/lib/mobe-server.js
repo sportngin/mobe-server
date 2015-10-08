@@ -50,11 +50,12 @@ var mockAPI = function (req, res, next) {
 
   } else if (isIntercept(req)) {
     addInterceptedRequest(req);
+    log.info('Intercepted Path: ' + methodPath(req));
 
     var mockData = registeredIntercepts[methodPath(req)];
     res.statusCode = mockData.statusCode;
     res.send(mockData.response);
-    log.info('Intercepted Path: ' + methodPath(req));
+    log.info('Responded to Intercepted Path: ' + methodPath(req))
 
   } else if (isMockResponse(req)) {
     var mockData = registeredMocks[methodPath(req)];
