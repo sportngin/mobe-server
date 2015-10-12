@@ -1,4 +1,4 @@
-#MOBE [![Build Status](https://travis-ci.org/TIMBERings/mobe-server.svg)](http://travis-ci.org/TIMBERings/mobe-server)
+MOBE [![Build Status](https://travis-ci.org/TIMBERings/mobe-server.svg)](http://travis-ci.org/TIMBERings/mobe-server)
 =====
 
 MOBE (/mō-bē /) stands for **M**ock **O**ut **B**ack **E**nd.  It is inspired by [MSL](http://finraos.github.io/MSL/).  This tool allows a user to unit test the front end without relying on a back end, making tests faster and more reliable.  It also allows to test API contracts.
@@ -6,7 +6,7 @@ MOBE (/mō-bē /) stands for **M**ock **O**ut **B**ack **E**nd.  It is inspired 
 
 Releases
 ==========
-[Release 0.0.6](https://www.npmjs.com/package/mobe-server)
+[Release 0.0.7](https://www.npmjs.com/package/mobe-server)
 
 Contributing
 ==============
