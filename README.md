@@ -4,11 +4,11 @@
 MOBE (/mō-bē /) stands for **M**ock **O**ut **B**ack **E**nd.  It is inspired by [MSL](http://finraos.github.io/MSL/).  This tool allows a user to unit test the front end without relying on a back end, making tests faster and more reliable.  It also allows to test API contracts.
 
 
-##Releases
+Releases
 ==========
-[Release 0.0.4](https://www.npmjs.com/package/mobe-server)
+[Release 0.0.6](https://www.npmjs.com/package/mobe-server)
 
-##Contributing
+Contributing
 ==============
 Thank you for taking the time to contribute. 
 
@@ -29,7 +29,7 @@ If you want to contribute, here's how:
 
 All communication will happen within GitHub.  Please log defects or enhancements as issues.
 
-##Installing MOBE Server
+Installing MOBE Server
 ========================
 Local install
 
@@ -43,7 +43,7 @@ Global install
 npm install -g mobe-server
 ```
 
-##Starting MOBE Server
+Starting MOBE Server
 ======================
 If you installed it locally:
 
@@ -68,13 +68,13 @@ Example:
 mobe --port=8001 --log=warn
 ```
 
-##API
+API
 ====================
 Mock Response - Structure to respond to a request with mock data
 
 Intercept - Structure to intercept a request to view the request body.  Sends a response after the intercept.
 
-####Actions
+**Actions**
 * Register Mock Response
   * /mobe/response/register
   * Params:
@@ -132,11 +132,11 @@ Intercept - Structure to intercept a request to view the request body.  Sends a 
 
 
 
-##Ruby Client
+Ruby Client
 =============
 Include 'mobe-client' in your Gemfile, `gem mobe-client`, or `gem install mobe-client`.
 
 
-##License Type
+License Type
 ==============
 MOBE project is licensed under [The MIT License](https://raw.githubusercontent.com/TIMBERings/mobe-server/master/LICENSE).

@@ -1,6 +1,6 @@
 {
   "name": "mobe-server",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Point your application to mobe-server to mock out the back end. This is ideal for unit testing the front end of your application using a tool like Selenium.",
   "main": "server.js",
   "scripts": {
@@ -13,9 +13,17 @@
   "engines": {
     "node": "~0.10"
   },
+  "bugs": {
+    "url" : "https://github.com/TIMBERings/mobe-server/issues",
+    "email" : "a.humerickhouse@gmail.com"
+  },
+  "repository":   {
+    "type" : "git",
+    "url" : "https://github.com/TIMBERings/mobe-server.git"
+  },
   "readmeFilename": "README.md",
   "author": "Aaron Humerickhouse",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
