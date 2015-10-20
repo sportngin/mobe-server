@@ -65,6 +65,12 @@ var mockAPI = function (req, res, next) {
     res.send(mockData.response);
     log.info('Responded With Body for Path: ' + methodPath(req));
 
+  } else if (isOptions(req)) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "PUT, PATCH, DELETE, OPTIONS, HEAD, TRACE, CONNECT");
+    res.send();
+    log.debug('Responded to OPTIONS call for:' + methodPath(req));
+  
   } else {
     res.statusCode = 404
     res.send();
@@ -72,6 +78,10 @@ var mockAPI = function (req, res, next) {
     return next();
   }
 };
+
+function isOptions(body) {
+  return body.method === 'OPTIONS'
+}
 
 function isMockResponse(body) {
   if (body) {
