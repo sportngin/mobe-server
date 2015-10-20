@@ -54,12 +54,14 @@ var mockAPI = function (req, res, next) {
 
     var mockData = registeredIntercepts[methodPath(req)];
     res.statusCode = mockData.statusCode;
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.send(mockData.response);
     log.info('Responded to Intercepted Path: ' + methodPath(req))
 
   } else if (isMockResponse(req)) {
     var mockData = registeredMocks[methodPath(req)];
     res.statusCode = mockData.statusCode;
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.send(mockData.response);
     log.info('Responded With Body for Path: ' + methodPath(req));
 

@@ -1,6 +1,6 @@
 {
   "name": "mobe-server",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Point your application to mobe-server to mock out the back end. This is ideal for unit testing the front end of your application using a tool like Selenium.",
   "main": "server.js",
   "scripts": {
