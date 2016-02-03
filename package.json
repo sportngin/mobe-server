@@ -1,6 +1,6 @@
 {
   "name": "mobe-server",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Point your application to mobe-server to mock out the back end. This is ideal for unit testing the front end of your application using a tool like Selenium.",
   "main": "server.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "files": ["./src/"],
   "engines": {
-    "node": "~0.10"
+    "node": ">=0.10.0 <5.0.0"
   },
   "bugs": {
     "url" : "https://github.com/TIMBERings/mobe-server/issues",
