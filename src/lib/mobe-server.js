@@ -9,10 +9,11 @@ var main = function (argv) {
   var port = Number(argv.port) || 8000;
   server.listen(port);
   log.setLevel(argv.log || 'info');
-  log.info('MOBE launched on port:', port)
+  log.info('MOBE launched on port:', port);
 };
 
 var mockAPI = function (req, res, next) {
+  var mockData;
   if (req.path == '/mobe/response/register') {
     registerMockResponse(req.body);
     res.send({'status': 'success', 'message': 'response registered at: ' + methodPath(req.body)});
@@ -52,14 +53,14 @@ var mockAPI = function (req, res, next) {
     addInterceptedRequest(req);
     log.info('Intercepted Path: ' + methodPath(req));
 
-    var mockData = registeredIntercepts[methodPath(req)];
+    mockData = registeredIntercepts[methodPath(req)];
     res.statusCode = mockData.statusCode;
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.send(mockData.response);
-    log.info('Responded to Intercepted Path: ' + methodPath(req))
+    log.info('Responded to Intercepted Path: ' + methodPath(req));
 
   } else if (isMockResponse(req)) {
-    var mockData = registeredMocks[methodPath(req)];
+    mockData = registeredMocks[methodPath(req)];
     res.statusCode = mockData.statusCode;
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.send(mockData.response);
@@ -70,9 +71,9 @@ var mockAPI = function (req, res, next) {
     res.setHeader("Access-Control-Allow-Methods", "PUT, PATCH, DELETE, OPTIONS, HEAD, TRACE, CONNECT");
     res.send();
     log.debug('Responded to OPTIONS call for:' + methodPath(req));
-  
+
   } else {
-    res.statusCode = 404
+    res.statusCode = 404;
     res.send();
     log.warn('Missing Path: ' + methodPath(req));
     return next();
